@@ -4,9 +4,12 @@ let btnDiv = document.getElementById("btn-div");
 let choices = document.getElementById("choices");
 let guesses = document.getElementsByClassName("btn-interval");
 
+//
 btnDiv.addEventListener("click", (e) => {
   if (e.target.tagName == "BUTTON") {
     if (e.target.id == notes[0].name) {
+      e.target.disabled = true;
+      console.log(e.target);
       e.target.style.background = "green";
       let tryAgainBtn = document.createElement("button");
       tryAgainBtn.textContent = "Try Again";
@@ -17,6 +20,7 @@ btnDiv.addEventListener("click", (e) => {
         tryAgainBtn.remove();
         for (let i = 0; i < guesses.length; i++) {
           guesses[i].style.background = "white";
+          guesses[i].disabled = false;
         }
         if (rootAudio.play || notes[0].play) {
           rootAudio.pause();
