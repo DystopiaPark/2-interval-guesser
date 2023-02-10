@@ -6,8 +6,29 @@ let guesses = document.getElementsByClassName("btn-interval");
 
 btnDiv.addEventListener("click", (e) => {
   if (e.target.tagName == "BUTTON") {
-    if (e.target.id == notes[0].src.slice(28, -4)) {
+    if (e.target.id == notes[0].name) {
       e.target.style.background = "green";
+      let tryAgainBtn = document.createElement("button");
+      tryAgainBtn.textContent = "Try Again";
+      tryAgainBtn.classList.add("btn-repeat");
+      choices.prepend(tryAgainBtn);
+      tryAgainBtn.addEventListener("click", () => {
+        shuffle(notes);
+        tryAgainBtn.remove();
+        for (let i = 0; i < guesses.length; i++) {
+          guesses[i].style.background = "white";
+        }
+        if (rootAudio.play || notes[0].play) {
+          rootAudio.pause();
+          notes[0].pause();
+          rootAudio.currentTime = 0;
+          notes[0].currentTime = 0;
+          rootAudio.play();
+          setTimeout(() => {
+            notes[0].play();
+          }, 1000);
+        }
+      });
     } else {
       e.target.style.background = "red";
     }
@@ -15,18 +36,31 @@ btnDiv.addEventListener("click", (e) => {
 });
 // Individual notes
 let rootAudio = new Audio("notes/rootAudio.mp3");
+rootAudio.name = "rootAudio";
 let minorSecond = new Audio("notes/minorSecond.mp3");
+minorSecond.name = "minorSecond";
 let majorSecond = new Audio("notes/majorSecond.mp3");
+majorSecond.name = "majorSecond";
 let minorThird = new Audio("notes/minorThird.mp3");
+minorThird.name = "minorThird";
 let majorThird = new Audio("notes/majorThird.mp3");
+majorThird.name = "majorThird";
 let perfectFourth = new Audio("notes/perfectFourth.mp3");
+perfectFourth.name = "perfectFourth";
 let tritone = new Audio("notes/tritone.mp3");
+tritone.name = "tritone";
 let perfectFifth = new Audio("notes/perfectFifth.mp3");
+perfectFifth.name = "perfectFifth";
 let minorSixth = new Audio("notes/minorSixth.mp3");
+minorSixth.name = "minorSixth";
 let majorSixth = new Audio("notes/majorSixth.mp3");
+majorSixth.name = "majorSixth";
 let minorSeventh = new Audio("notes/minorSeventh.mp3");
+minorSeventh.name = "minorSeventh";
 let majorSeventh = new Audio("notes/majorSeventh.mp3");
+majorSeventh.name = "majorSeventh";
 let octave = new Audio("notes/octave.mp3");
+octave.name = "octave";
 
 // Notes array
 let notes = [
@@ -41,7 +75,7 @@ let notes = [
   majorSeventh,
   octave,
 ];
-console.log(notes[0].src.slice(28, -4));
+
 // Fischer-Yates Shuffle
 function shuffle(array) {
   let currentIndex = array.length,
