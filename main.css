@@ -132,12 +132,16 @@ section {
   cursor: pointer;
 }
 #btn-div {
+  min-width: 420px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   display: none;
 }
-.btn-interval {
+.btn-interval,
+.btn-repeat {
   padding: 0.5rem 0.25rem;
   cursor: pointer;
+  margin-bottom: 1rem;
+  margin-right: 0.35rem;
 }
