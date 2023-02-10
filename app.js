@@ -2,21 +2,31 @@
 let startBtn = document.getElementById("start-btn");
 let btnDiv = document.getElementById("btn-div");
 let choices = document.getElementById("choices");
+let guesses = document.getElementsByClassName("btn-interval");
 
+btnDiv.addEventListener("click", (e) => {
+  if (e.target.tagName == "BUTTON") {
+    if (e.target.id == notes[0].src.slice(28, -4)) {
+      e.target.style.background = "green";
+    } else {
+      e.target.style.background = "red";
+    }
+  }
+});
 // Individual notes
-let rootAudio = new Audio("notes/key08.mp3");
-let minorSecond = new Audio("notes/key09.mp3");
-let majorSecond = new Audio("notes/key10.mp3");
-let minorThird = new Audio("notes/key11.mp3");
-let majorThird = new Audio("notes/key12.mp3");
-let perfectFourth = new Audio("notes/key13.mp3");
-let tritone = new Audio("notes/key14.mp3");
-let perfectFifth = new Audio("notes/key15.mp3");
-let minorSixth = new Audio("notes/key16.mp3");
-let majorSixth = new Audio("notes/key17.mp3");
-let minorSeventh = new Audio("notes/key18.mp3");
-let majorSeventh = new Audio("notes/key19.mp3");
-let octave = new Audio("notes/key20.mp3");
+let rootAudio = new Audio("notes/rootAudio.mp3");
+let minorSecond = new Audio("notes/minorSecond.mp3");
+let majorSecond = new Audio("notes/majorSecond.mp3");
+let minorThird = new Audio("notes/minorThird.mp3");
+let majorThird = new Audio("notes/majorThird.mp3");
+let perfectFourth = new Audio("notes/perfectFourth.mp3");
+let tritone = new Audio("notes/tritone.mp3");
+let perfectFifth = new Audio("notes/perfectFifth.mp3");
+let minorSixth = new Audio("notes/minorSixth.mp3");
+let majorSixth = new Audio("notes/majorSixth.mp3");
+let minorSeventh = new Audio("notes/minorSeventh.mp3");
+let majorSeventh = new Audio("notes/majorSeventh.mp3");
+let octave = new Audio("notes/octave.mp3");
 
 // Notes array
 let notes = [
@@ -31,7 +41,7 @@ let notes = [
   majorSeventh,
   octave,
 ];
-
+console.log(notes[0].src.slice(28, -4));
 // Fischer-Yates Shuffle
 function shuffle(array) {
   let currentIndex = array.length,
@@ -53,13 +63,31 @@ shuffle(notes);
 startBtn.addEventListener("click", () => {
   startBtn.style.display = "none";
   btnDiv.style.display = "block";
-  let playAgainBtn = document.createElement("button");
+  playAgainBtn = document.createElement("button");
   playAgainBtn.textContent = "Play Again";
   playAgainBtn.classList.add("btn-repeat");
-  console.log(playAgainBtn);
   choices.prepend(playAgainBtn);
+
   rootAudio.play();
   setTimeout(() => {
     notes[0].play();
   }, 1000);
+  // Play the audio again
+  playAgainBtn.addEventListener("click", () => {
+    if (rootAudio.play || notes[0].play) {
+      rootAudio.pause();
+      notes[0].pause();
+      rootAudio.currentTime = 0;
+      notes[0].currentTime = 0;
+      rootAudio.play();
+      setTimeout(() => {
+        notes[0].play();
+      }, 1000);
+    } else {
+      rootAudio.play();
+      setTimeout(() => {
+        notes[0].play();
+      }, 1000);
+    }
+  });
 });
