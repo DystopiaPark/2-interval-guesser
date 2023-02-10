@@ -76,7 +76,7 @@ let notes = [
   tritone,
   perfectFifth,
   minorSixth,
-  minorSeventh,
+  majorSixth,
   minorSeventh,
   majorSeventh,
   octave,
